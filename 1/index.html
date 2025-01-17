@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Car Specs</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+
+        table {
+            border-collapse: collapse;
+        }
+
+        td {
+            border: 1px solid black;
+        }
+
+        .row__brand, .cell__model {
+            color: white;
+            text-align: center;
+        }
+
+        .row__brand {
+            background-color: #4051b5;
+        }
+
+        .cell__model {
+            background-color: #e91e63;
+        }
+
+    </style>
+</head>
+<body>
+<div id="root"></div>
+<!-- JSX -->
+
+<script type="text/babel">
+    const domContainer = document.querySelector("#root");
+    const root = ReactDOM.createRoot(domContainer);
+
+    const heading = <h1>Car Specs</h1>;
+
+
+    const CARS = [
+        {
+            id: 1,
+            brand: "Audi",
+            models: [
+                {
+                    id: 1,
+                    name: "A1",
+                    collection: [
+                        {
+                            id: 1,
+                            version: "Sportback",
+                            year: 2019,
+                            horsepower: 95,
+                            engine: 999
+                        },
+                        {
+                            id: 2,
+                            version: "Citycarver",
+                            year: 2019,
+                            horsepower: 95,
+                            engine: 999
+                        }
+                    ]
+                },
+                {
+                    id: 2,
+                    name: "Q5",
+                    collection: [
+                        {
+                            id: 1,
+                            version: "FY 2021",
+                            year: 2021,
+                            horsepower: 299,
+                            engine: 1984
+                        },
+                        {
+                            id: 2,
+                            version: "Sportback",
+                            year: 2021,
+                            horsepower: 299,
+                            engine: 1984
+                        }
+                    ]
+                },
+                {
+                    id: 3,
+                    name: "TT",
+                    collection: [
+                        {
+                            id: 1,
+                            version: "Coupe",
+                            year: 2021,
+                            horsepower: 197,
+                            engine: 1984
+                        },
+                        {
+                            id: 2,
+                            version: "Roadster",
+                            year: 2021,
+                            horsepower: 197,
+                            engine: 1984
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: 2,
+            brand: "BMW",
+            models: [
+                {
+                    id: 1,
+                    name: "8 series",
+                    collection: [
+                        {
+                            id: 1,
+                            version: "G1X LCI",
+                            year: 2022,
+                            horsepower: 333,
+                            engine: 2998
+                        },
+                        {
+                            id: 2,
+                            version: "G1X",
+                            year: 2019,
+                            horsepower: 340,
+                            engine: 2998
+                        }
+                    ]
+                },
+                {
+                    id: 2,
+                    name: "X6",
+                    collection: [
+                        {
+                            id: 1,
+                            version: "G06 LCI",
+                            year: 2023,
+                            horsepower: 530,
+                            engine: 4395
+                        },
+                        {
+                            id: 2,
+                            version: "G06",
+                            year: 2020,
+                            horsepower: 286,
+                            engine: 2993
+                        }
+                    ]
+                }
+            ]
+        },
+    ];
+
+    const CollectionData = ({collection}) => (
+        <td>
+            <ul>
+                <li>Version: {collection.version}</li>
+                <li>Year: {collection.year}</li>
+                <li>Horsepower: {collection.horsepower}</li>
+                <li>Engine: {collection.engine}</li>
+            </ul>
+        </td>
+    );
+
+
+    root.render(
+        <React.Fragment>
+            <React.Fragment>
+                {heading}
+            </React.Fragment>
+
+            <table>
+                <tbody>
+                {CARS.map((car) => (
+                    <React.Fragment key={car.id}>
+                        <tr className="row__brand">
+                            <td colSpan="2">{car.brand}</td>
+                        </tr>
+                        {car.models.map((model) => (
+                            <React.Fragment key={model.id}>
+                                <tr>
+                                    <td className="cell__model" rowSpan={model.collection.length}>{model.name}</td>
+                                    {model.collection.filter((item, index) => index === 0).map((collection) => (
+                                        <CollectionData collection={collection} key={collection.id}></CollectionData>
+                                    ))}
+                                </tr>
+                                {model.collection.filter((item, index) => index !== 0).map((collection) => (
+                                    // Работает как с фрагментом, как и без. Но, как правильнее?
+                                    <React.Fragment key={collection.id}>
+                                        <tr>
+                                            <CollectionData collection={collection} key={collection.id}></CollectionData>
+                                        </tr>
+                                    </React.Fragment>
+                                ))}
+                            </React.Fragment>
+                        ))}
+                    </React.Fragment>
+                ))}
+                </tbody>
+            </table>
+
+
+        </React.Fragment>
+    );
+</script>
+</body>
+</html>
