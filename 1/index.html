@@ -24,6 +24,7 @@
 
         .row__brand {
             background-color: #4051b5;
+            min-width: 300px;
         }
 
         .cell__model {
@@ -81,6 +82,18 @@
                         },
                         {
                             id: 2,
+                            version: "Sportback",
+                            year: 2021,
+                            horsepower: 299,
+                            engine: 1984
+                        }, {
+                            id: 22,
+                            version: "Sportback2",
+                            year: 2021,
+                            horsepower: 299,
+                            engine: 1984
+                        }, {
+                            id: 23,
                             version: "Sportback",
                             year: 2021,
                             horsepower: 299,
@@ -168,7 +181,21 @@
             </ul>
         </td>
     );
-
+    const ModelData = ({model}) => (
+        model.collection.length && (
+            <React.Fragment key={model.id}>
+                <tr>
+                    <td className="cell__model" rowSpan={model.collection.length}>{model.name}</td>
+                    <CollectionData collection={model.collection[0]} key={model.collection[0].id}></CollectionData>
+                </tr>
+                {model.collection.filter((item, index) => index !== 0).map((collection) => (
+                    <tr key={collection.id}>
+                        <CollectionData collection={collection} key={collection.id}></CollectionData>
+                    </tr>
+                ))}
+            </React.Fragment>
+        )
+    );
 
     root.render(
         <React.Fragment>
@@ -184,22 +211,7 @@
                             <td colSpan="2">{car.brand}</td>
                         </tr>
                         {car.models.map((model) => (
-                            <React.Fragment key={model.id}>
-                                <tr>
-                                    <td className="cell__model" rowSpan={model.collection.length}>{model.name}</td>
-                                    {model.collection.filter((item, index) => index === 0).map((collection) => (
-                                        <CollectionData collection={collection} key={collection.id}></CollectionData>
-                                    ))}
-                                </tr>
-                                {model.collection.filter((item, index) => index !== 0).map((collection) => (
-                                    // Работает как с фрагментом, как и без. Но, как правильнее?
-                                    <React.Fragment key={collection.id}>
-                                        <tr>
-                                            <CollectionData collection={collection} key={collection.id}></CollectionData>
-                                        </tr>
-                                    </React.Fragment>
-                                ))}
-                            </React.Fragment>
+                            <ModelData model={model} key={model.id}></ModelData>
                         ))}
                     </React.Fragment>
                 ))}
