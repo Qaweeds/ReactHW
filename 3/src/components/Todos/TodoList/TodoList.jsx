@@ -1,4 +1,4 @@
-import TodoItem from "../TodosItem/TodoItem.jsx";
+import TodoItem from "./TodosItem/TodoItem.jsx";
 
 export default function TodoList({list = [], title = '', buttons = []}) {
 
