@@ -1,7 +1,6 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext} from 'react';
 import BattleContext from "../../contexts/BattleContext.js";
 import Button from "../Button/Button.jsx";
-import routes from "../../services/battle.js";
 import {PLAYERS_COUNT} from "../../constants/battle.js";
 
 export default function Player({cardId}) {

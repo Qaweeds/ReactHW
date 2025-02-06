@@ -1,7 +1,6 @@
 import React, {useContext, useState} from 'react';
 import Button from "../Button/Button.jsx";
 import BattleContext from "../../contexts/BattleContext.js";
-import routes from "../../services/battle.js";
 
 export default function Search({cardId}) {
     const [name, setName] = useState(``);
@@ -10,8 +9,9 @@ export default function Search({cardId}) {
     const searchPlayer = async (e) => {
         e.preventDefault();
         addPlayer(name, cardId).then((res) => {
-            if (!res) {
-                setError('Username not found')
+            if (res.error) {
+                console.log(res.msg)
+                setError(res.msg)
             }
         });
     }

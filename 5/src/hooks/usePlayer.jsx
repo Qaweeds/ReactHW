@@ -1,18 +1,30 @@
-import {useReducer, useRef, useState} from "react";
+import {useReducer} from "react";
 import {initialState, reducer} from "../store/player/reducer.js";
 import routes from "../services/battle.js";
 import {ADD_PLACE, ADD_PLAYER, ADD_PLAYER_DATA, REMOVE_PLAYER, RESET} from "../store/player/actions.js";
 import {actionCreator} from "../store/store.js";
+import {ERR_BAD_REQUEST, NOT_FOUND} from "../constants/battle.js";
 
 export default function usePlayer(setRatingData) {
     const [players, dispatchPlayer] = useReducer(reducer, initialState);
     const addPlayer = async (name, id) => {
         try {
             const response = await routes.user(name);
-            dispatchPlayer(actionCreator(ADD_PLAYER, response, id))
+            if (validateUnique(response.login)) {
+                dispatchPlayer(actionCreator(ADD_PLAYER, response, id))
+            } else {
+                return {error: true, msg: "User already in the Battle"}
+            }
         } catch (err) {
             console.log(err);
-            return false;
+            switch (err.status) {
+                case ERR_BAD_REQUEST:
+                    return {error: true, msg: "Forbiden"};
+                case NOT_FOUND:
+                    return {error: true, msg: "Username not found"};
+                default:
+                    return {error: true, msg: err.status};
+            }
         }
     }
 
@@ -41,6 +53,8 @@ export default function usePlayer(setRatingData) {
         dispatchPlayer(actionCreator(ADD_PLACE, {place: place}, id));
     }
 
-
+    const validateUnique = (username) => {
+        return !(Object.values(players).filter((p) => p.login === username)).length;
+    }
     return {players, addPlayer, removePlayer, resetPlayers, addPlayerData, addPlayerPlace}
 }

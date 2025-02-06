@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect} from 'react';
 import {PLAYERS_COUNT} from "../../constants/battle.js";
 
 import "./battle.sass";
@@ -37,6 +37,7 @@ export default function Battle() {
     return (
 
         <BattleContext.Provider value={{players, addPlayer, removePlayer, addPlayerData, battleStarted}}>
+            <h1>Lets Get Ready to Rumble 🥊</h1>
             <div className='container'>
                 {data}
             </div>
