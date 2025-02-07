@@ -9,33 +9,35 @@ import useBattle from "../../hooks/useBattle.jsx";
 
 
 export default function Battle() {
+    const {data, createCards, ratingData, setRatingData, battleStarted, setBattleStarted} = useBattle();
+    const {players, addPlayer, removePlayer, resetPlayers, addPlayerData, addPlayerPlace} = usePlayer();
 
-    const {createCards, ratingData, setRatingData, battleStarted, setBattleStarted} = useBattle();
-    const {players, addPlayer, removePlayer, resetPlayers, addPlayerData, addPlayerPlace} = usePlayer(setRatingData);
-    const data = createCards();
+    useEffect(() => {
+        createCards(PLAYERS_COUNT);
+    }, [])
 
     useEffect(() => {
         if (battleStarted && ratingData.length === PLAYERS_COUNT) {
             let place = 1;
-            ratingData.sort((a, b) => b.total - a.total).map((obj, i) => addPlayerPlace(obj.id, place++));
+            ratingData.sort((a, b) => b.total - a.total).map((obj) => addPlayerPlace(obj.id, place++));
         }
     }, [ratingData]);
 
     const startBattle = () => {
+        setBattleStarted(true);
         Object.keys(players).map((k) => {
-            addPlayerData(players[k].login, k);
+            addPlayerData(players[k].login, k)
+                .then((data) => data && setRatingData((prev) => [...prev, data]));
         })
-        return setBattleStarted(true);
     }
-
 
     const resetBattle = () => {
         resetPlayers();
         setBattleStarted(false);
         setRatingData([]);
     }
-    return (
 
+    return (
         <BattleContext.Provider value={{players, addPlayer, removePlayer, addPlayerData, battleStarted}}>
             <h1>Lets Get Ready to Rumble 🥊</h1>
             <div className='container'>
@@ -48,7 +50,5 @@ export default function Battle() {
                 <Button className="battle__button" title="Reset" handleClick={resetBattle}/>
             }
         </BattleContext.Provider>
-
-
     )
 }

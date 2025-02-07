@@ -1,17 +1,18 @@
-import React, {useReducer, useState} from "react";
-import {PLAYERS_COUNT} from "../constants/battle.js";
+import React, {useState} from "react";
 import BattleCard from "../components/BattleCard/BattleCard.jsx";
 
 export default function useBattle() {
+    const [data, setData] = useState([]);
     const [ratingData, setRatingData] = useState([]);
     const [battleStarted, setBattleStarted] = useState(false);
-    const createCards = () => {
+    const createCards = (playerCount) => {
+
         let cards = [];
-        for (let i = 1; i <= PLAYERS_COUNT; i++) {
+        for (let i = 1; i <= playerCount; i++) {
             cards.push(<BattleCard key={i} cardId={i}/>)
         }
-        return cards;
+        setData(cards);
     }
 
-    return {createCards, ratingData, setRatingData, battleStarted, setBattleStarted}
+    return {data,createCards, ratingData, setRatingData, battleStarted, setBattleStarted}
 }

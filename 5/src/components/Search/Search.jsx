@@ -9,8 +9,7 @@ export default function Search({cardId}) {
     const searchPlayer = async (e) => {
         e.preventDefault();
         addPlayer(name, cardId).then((res) => {
-            if (res.error) {
-                console.log(res.msg)
+            if (res && res.error) {
                 setError(res.msg)
             }
         });
@@ -21,7 +20,7 @@ export default function Search({cardId}) {
             <label>
                 <span> Choose Player {cardId}</span>
                 <input type="text" defaultValue={name} onChange={(e) => setName(e.target.value)}/>
-                {error.length && <p className='color__red'>{error}</p>}
+                {error.length !== 0 && <p className='color__red'>{error}</p>}
             </label>
             <Button title="Submit" handleClick={searchPlayer}/>
         </form>

@@ -1,4 +1,4 @@
-import {ADD_PLACE, ADD_PLAYER, ADD_PLAYER_DATA, REMOVE_PLAYER, RESET} from "./actions.js";
+import {ADD_PLAYER, ADD_PLAYER_DATA, REMOVE_PLAYER, RESET} from "./actions.js";
 
 const initialState = {};
 
@@ -11,8 +11,6 @@ const reducer = (state, {type, payload, id}) => {
             delete (newPlayers[id]);
             return newPlayers;
         case ADD_PLAYER_DATA:
-            return {...state, [id]: {...state[id], ...payload}};
-        case ADD_PLACE:
             return {...state, [id]: {...state[id], ...payload}};
         case RESET:
             return initialState;

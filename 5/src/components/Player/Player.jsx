@@ -5,7 +5,7 @@ import {PLAYERS_COUNT} from "../../constants/battle.js";
 
 export default function Player({cardId}) {
     const {players, removePlayer} = useContext(BattleContext);
-    const {battleStarted, placeCalculated} = useContext(BattleContext);
+    const {battleStarted} = useContext(BattleContext);
 
     const player = players[cardId];
 
@@ -23,7 +23,7 @@ export default function Player({cardId}) {
             <h4 className="player__title">@{player.login}</h4>
 
             {!battleStarted &&
-                <Button title="Restart 🔄" className="mt-1" handleClick={() => {
+                <Button title="Reset 🔄" className="mt-1" handleClick={() => {
                     resetPlayer(cardId)
                 }}/>}
 

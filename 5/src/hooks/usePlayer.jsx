@@ -1,11 +1,11 @@
 import {useReducer} from "react";
 import {initialState, reducer} from "../store/player/reducer.js";
 import routes from "../services/battle.js";
-import {ADD_PLACE, ADD_PLAYER, ADD_PLAYER_DATA, REMOVE_PLAYER, RESET} from "../store/player/actions.js";
+import {ADD_PLAYER, ADD_PLAYER_DATA, REMOVE_PLAYER, RESET} from "../store/player/actions.js";
 import {actionCreator} from "../store/store.js";
 import {ERR_BAD_REQUEST, NOT_FOUND} from "../constants/battle.js";
 
-export default function usePlayer(setRatingData) {
+export default function usePlayer() {
     const [players, dispatchPlayer] = useReducer(reducer, initialState);
     const addPlayer = async (name, id) => {
         try {
@@ -43,14 +43,14 @@ export default function usePlayer(setRatingData) {
             let total = players[id].followers + stars;
             dispatchPlayer(actionCreator(ADD_PLAYER_DATA, {stargazers_count: stars, total: total}, id));
 
-            setRatingData((prev) => [...prev, {id: id, total: total}]);
+            return {id: id, total: total};
         } catch (err) {
             console.log(err);
         }
     }
 
     const addPlayerPlace = (id, place) => {
-        dispatchPlayer(actionCreator(ADD_PLACE, {place: place}, id));
+        dispatchPlayer(actionCreator(ADD_PLAYER_DATA, {place: place}, id));
     }
 
     const validateUnique = (username) => {
