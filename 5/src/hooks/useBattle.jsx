@@ -14,5 +14,5 @@ export default function useBattle() {
         setData(cards);
     }
 
-    return {data,createCards, ratingData, setRatingData, battleStarted, setBattleStarted}
+    return {data, createCards, ratingData, setRatingData, battleStarted, setBattleStarted}
 }

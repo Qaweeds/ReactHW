@@ -1,4 +1,4 @@
-const PLAYERS_COUNT = 4; //Ограничения гитхаба по запросам
+const PLAYERS_COUNT = 6; //Ограничения гитхаба по запросам
 const ERR_BAD_REQUEST = 403;
 const NOT_FOUND = 404;
 

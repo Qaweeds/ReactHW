@@ -1,10 +1,9 @@
 import React, {useContext} from 'react';
 import BattleContext from "../../contexts/BattleContext.js";
 import Button from "../Button/Button.jsx";
-import {PLAYERS_COUNT} from "../../constants/battle.js";
 
 export default function Player({cardId}) {
-    const {players, removePlayer} = useContext(BattleContext);
+    const {players, removePlayer, playerCount} = useContext(BattleContext);
     const {battleStarted} = useContext(BattleContext);
 
     const player = players[cardId];
@@ -16,7 +15,7 @@ export default function Player({cardId}) {
     return (
         <>
             {battleStarted &&
-                <h2>{player.place === 1 ? 'Winner 🥳' : (player.place === PLAYERS_COUNT ? "Loser 🥵" : player.place)}</h2>
+                <h2>{player.place === 1 ? 'Winner 🥳' : (player.place === playerCount ? "Loser 🥵" : player.place)}</h2>
             }
 
             <img className="player__avatar" src={player.avatar_url} alt={player.login}/>
