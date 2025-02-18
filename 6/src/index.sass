@@ -1,0 +1,67 @@
+:root
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif
+  max-width: 1280px
+  margin: 0 auto
+  padding: 2rem
+  text-align: center
+
+a
+  font-weight: 500
+  color: #646cff
+  text-decoration: inherit
+
+a:hover
+  color: #535bf2
+
+header
+  nav
+    display: flex
+
+    a.active
+      color: red
+      text-decoration: underline
+
+main
+  display: flex
+  flex-direction: column
+  align-items: center
+
+.country__form
+  font-size: 20px
+  display: flex
+  flex-direction: column
+  align-items: center
+
+  select
+    padding: 5px 10px
+    width: 150px
+    margin: 10px 0
+    border-radius: 8px
+
+.country__info, .countries__list, .country__form
+  display: flex
+  flex-direction: column
+  align-items: start
+  border: 1px solid black
+  border-radius: 10px
+  background-color: lightgrey
+  width: fit-content
+  padding: 10px
+
+  ul
+    text-align: left
+
+.country__form form
+  display: flex
+  flex-direction: column
+  align-items: center
+
+.capitalize
+  text-transform: capitalize
+
+.back-to
+  float: left
+  margin-top: 10px
+
+.title
+  font-weight: 500
