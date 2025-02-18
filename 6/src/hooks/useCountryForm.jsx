@@ -1,7 +1,5 @@
-import React, {useEffect, useReducer, useState} from 'react';
+import {useEffect, useState} from 'react';
 import useCountry from "./useCountry.jsx";
-import {actionCreator} from "../store/store.js";
-import {SELECT} from "../store/country/actions.js";
 
 
 export default function useCountryForm() {

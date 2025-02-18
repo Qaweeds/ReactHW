@@ -1,9 +1,9 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React from 'react';
 import Select from "../../Select/Select.jsx";
 import {Link} from "react-router-dom";
 import useCountryForm from "../../../hooks/useCountryForm.jsx";
 
-function CountryForm(props) {
+function CountryForm() {
     const {translation, setTranslation, countries, capitalList, translationList, setSelected, selectedCountry} = useCountryForm();
     const changeTranslationSelect = (e) => {
         setSelected(e.target.value)

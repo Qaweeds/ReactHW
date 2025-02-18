@@ -1,9 +1,8 @@
-import React, {useEffect, useReducer, useState} from 'react';
+import {useEffect, useReducer} from 'react';
 import mockapi from "../services/countries.js";
 import {initialState, reducer} from "../store/country/reducer.js";
 import {INIT, SELECT} from "../store/country/actions.js";
 import {actionCreator} from "../store/store.js";
-import countryForm from "../components/Countries/CountryForm/CountryForm.jsx";
 
 
 export default function useCountry() {
